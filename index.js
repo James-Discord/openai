@@ -1,5 +1,10 @@
 const express = require('express');
 const { Configuration, OpenAIApi } = require('openai');
+const axios = require('axios');
+const multer = require('multer');
+const path = require('path');
+const FormData = require('form-data');
+const fs = require('fs');
 
 const app = express();
 app.use(express.json());
