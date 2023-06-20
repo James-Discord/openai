@@ -6,7 +6,7 @@ const FormData = require('form-data');
 const client = new Discord.Client();
 const token = 'YOUR_DISCORD_BOT_TOKEN';
 const transcriptionsAPI = 'https://api.cattto.repl.co/v1/audio/transcriptions';
-const apiKey = 'YOUR_API_KEY';
+const apiKey = 'catto_key_UVSctZHJmQo2IQh0nnfiZUBW';
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
