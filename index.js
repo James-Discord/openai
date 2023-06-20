@@ -65,7 +65,7 @@ app.get('/gpt/gpt-3.5turbo', async (req, res) => {
 
     res.json({ response });
   } catch (error) {
-    console.error('OpenAI API request failed:', error.message);
+    console.error('OpenAI API request failed:', error);
     res.status(500).json({ error: 'OpenAI API request failed.' });
   }
 });
