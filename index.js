@@ -51,7 +51,7 @@ app.post('/transcriptions', upload.single('file'), async (req, res) => {
 app.get('/gpt/gpt-3.5turbo', async (req, res) => {
   const prompt = req.query.prompt;
   const apiKey = 'catto_key_UVSctZHJmQo2IQh0nnfiZUBW';
-  const basePath = 'https://api.cattto.repl.co/v1/chat/completions';
+  const basePath = 'https://api.cattto.repl.co';
 
   const configuration = new Configuration({ apiKey, basePath });
   const openai = new OpenAIApi(configuration);
