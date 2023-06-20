@@ -57,7 +57,7 @@ app.get('/gpt/gpt-3.5turbo', async (req, res) => {
   
   const apiKey = 'catto_key_UVSctZHJmQo2IQh0nnfiZUBW';
   const apiUrl = 'https://api.cattto.repl.co/v1/chat/completions';
-
+  
   try {
     const response = await axios.post(apiUrl, {
       model: 'gpt-3.5-turbo',
@@ -69,12 +69,14 @@ app.get('/gpt/gpt-3.5turbo', async (req, res) => {
       },
     });
 
-    res.json({ response: response.data.choices[0].message });
+    const generatedResponse = response.data.choices[0].message.content;
+    res.json({ response: generatedResponse });
   } catch (error) {
     console.error('OpenAI API request failed:', error.message);
     res.status(500).json({ error: 'OpenAI API request failed.' });
   }
 });
+
 
 app.listen(3000, () => {
   console.log('API server is running on port 3000');
