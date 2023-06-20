@@ -7,6 +7,15 @@ const FormData = require('form-data');
 const fs = require('fs');
 
 const app = express();
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  }),
+});
+
 app.use(express.json());
 
 app.post('/transcriptions', upload.single('file'), async (req, res) => {
