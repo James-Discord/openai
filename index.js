@@ -49,23 +49,29 @@ app.post('/transcriptions', upload.single('file'), async (req, res) => {
 });
 
 app.get('/gpt/gpt-3.5turbo', async (req, res) => {
-  const prompt = req.query.prompt;
+  const { prompt } = req.query;
+  const promptMessages = [
+    { role: 'system', content: 'You are a helpful assistant.' },
+    { role: 'user', content: prompt },
+  ];
+  
   const apiKey = 'catto_key_UVSctZHJmQo2IQh0nnfiZUBW';
-  const basePath = 'https://api.cattto.repl.co';
-
-  const configuration = new Configuration({ apiKey, basePath });
-  const openai = new OpenAIApi(configuration);
+  const apiUrl = 'https://api.cattto.repl.co/v1/chat/completions';
 
   try {
-    const chatCompletion = await openai.createChatCompletion({
+    const response = await axios.post(apiUrl, {
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
+      messages: promptMessages,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
     });
-    const response = chatCompletion.data.choices[0].message;
 
-    res.json({ response });
+    res.json({ response: response.data.choices[0].message });
   } catch (error) {
-    console.error('OpenAI API request failed:', error);
+    console.error('OpenAI API request failed:', error.message);
     res.status(500).json({ error: 'OpenAI API request failed.' });
   }
 });
